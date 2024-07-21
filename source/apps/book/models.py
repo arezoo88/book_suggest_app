@@ -19,20 +19,6 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class Genre(models.Model):
-    name = models.CharField(
-        max_length=100,
-        verbose_name=_('Name'),
-    )
-
-    class Meta:
-        verbose_name = _('Genre')
-        verbose_name_plural = _('Genres')
-
-    def __str__(self):
-        return self.name
-
-
 class Book(BaseModel):
     title = models.CharField(
         max_length=200,
@@ -42,9 +28,8 @@ class Book(BaseModel):
         max_length=200,
         verbose_name=_('Author')
     )
-    genre = models.ForeignKey(
-        Genre,
-        on_delete=models.CASCADE,
+    genre = models.CharField(
+        max_length=200,
         verbose_name=_('Genre')
     )
 
