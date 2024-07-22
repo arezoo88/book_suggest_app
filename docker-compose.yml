@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:12-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - book_suggest
+    env_file:
+      - source/.env
+    ports:
+      - 5432:5432
+  web:
+    build:
+      context: .
+      dockerfile: DockerFile
+    command: bash -c "cd source/ && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/home/app
+    networks:
+      - book_suggest
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - source/.env
+networks:
+  book_suggest:
+    driver: bridge
+volumes:
+  postgres_data:
