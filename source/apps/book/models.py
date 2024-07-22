@@ -55,7 +55,7 @@ class Review(BaseModel):
         verbose_name=_('Book'),
     )
     rating = models.IntegerField(
-        choices=[(i, i) for i in range(1, 5)],
+        choices=[(i, i) for i in range(1, 6)],
         verbose_name=_('Rating')
     )
 
